@@ -6,7 +6,7 @@ const mailScehma = mongoose.Schema({
 })
 
 
-const mailModel = mongoose.Model("mail" , mailScehma)
+const mailModel = mongoose.model("mail" , mailScehma)
 
 module.exports = {
     mailModel
