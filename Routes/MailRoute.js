@@ -1,5 +1,5 @@
 const express = require("express")
-const mailModel = require("../Models/MailModel")
+const {mailModel} = require("../Models/MailModel")
 
 
 const mailRouter = express.Router()
