@@ -13,7 +13,7 @@ app.use(express.json())
 
 
 app.use("/users", userRouter);
-
+app.use("/mail" , mailRouter)
 
 
 app.get("/" , (req ,res)=>{
