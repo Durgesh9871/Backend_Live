@@ -1,39 +1,35 @@
-
+require("dotenv").config();
 const express = require("express")
-const {connection} = require("./configs/db")
-const {userRouter} = require("./routes/user.routes")
-const {postRouter} = require("./routes/post.routes")
-const {authenticate} = require("./Middlewares/authenticate")
+const { connection } = require("./config/db");
+const {userRouter} = require("./Routes/UserRoute")
 
+// cors 
 const cors = require("cors")
-
 const app = express()
-app.use(cors({
-    origin:"*"
-}))
 
+// middle wares -----------------
+app.use(cors())
 app.use(express.json())
 
 
-app.get("/" , (req,res)=>{
-    res.send("This is home page")
-})
+app.use("/users", userRouter);
 
 
 
-app.use("/users" , userRouter)
-app.use(authenticate)
-app.use("/posts" , postRouter)
+app.get("/" , (req ,res)=>{
+    res.send("HomePage of Bookxpert")
+}) 
 
 
 
-app.listen(4500 , async(req , res)=>{
-    try{
-        await connection 
-        console.log("connected to db on port 4500")
+//connect to the server:-
+app.listen(process.env.port, async () => {
+    try {
+      await connection;
+      console.log("Connected to DB");
+    } catch (err) {
+      console.log(`Cannot connect to DB: ${err}`);
     }
-    catch(err){
-       console.log(err , "trouble in connecting")
-    }
-        
-})
+    console.log(`Server is running on http://localhost:${process.env.port}`);
+  });
+  
